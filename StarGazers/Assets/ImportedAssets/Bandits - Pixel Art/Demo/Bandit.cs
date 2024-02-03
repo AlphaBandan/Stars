@@ -6,6 +6,8 @@ public class Bandit : MonoBehaviour {
     [SerializeField] float      m_speed = 4.0f;
     [SerializeField] float      m_jumpForce = 7.5f;
 
+    public float defaultSize = 3f;
+
     private Animator            m_animator;
     private Rigidbody2D         m_body2d;
     private Sensor_Bandit       m_groundSensor;
@@ -39,9 +41,9 @@ public class Bandit : MonoBehaviour {
 
         // Swap direction of sprite depending on walk direction
         if (inputX > 0)
-            transform.localScale = new Vector3(-1.0f, 1.0f, 1.0f);
+            transform.localScale = new Vector3(-defaultSize, defaultSize, defaultSize);
         else if (inputX < 0)
-            transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            transform.localScale = new Vector3(defaultSize, defaultSize, defaultSize);
 
         // Move
         m_body2d.velocity = new Vector2(inputX * m_speed, m_body2d.velocity.y);
