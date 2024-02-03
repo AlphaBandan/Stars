@@ -1,18 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class DragAndDrop : MonoBehaviour
+
+public class DragAndDrop : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler
 {
-    // Start is called before the first frame update
-    void Start()
+   public void OnBeginDrag(PointerEventData eventData)
     {
-        
+        Debug.Log("BeginDrag");
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OnDrag(PointerEventData eventData)
+
     {
-        
+        Debug.Log("onDrag");
+
     }
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        Debug.Log("EndDrag");
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        Debug.Log("CLICK");
+    }
+
+
+
+
 }
