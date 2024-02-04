@@ -7,6 +7,7 @@ public class Bandit : MonoBehaviour {
     [SerializeField] float      m_jumpForce = 7.5f;
 
     public float defaultSize = 3f;
+    public bool freeze = false;
 
     public Interacting      interactSensor;
     private Animator            m_animator;
@@ -43,9 +44,15 @@ public class Bandit : MonoBehaviour {
 
         // Swap direction of sprite depending on walk direction
         if (inputX > 0)
+        {
             transform.localScale = new Vector3(-defaultSize, defaultSize, defaultSize);
+            freeze = false;
+        }
         else if (inputX < 0)
+        {
             transform.localScale = new Vector3(defaultSize, defaultSize, defaultSize);
+            freeze = false;
+        }
 
         // Move
         m_body2d.velocity = new Vector2(inputX * m_speed, m_body2d.velocity.y);
@@ -96,8 +103,16 @@ public class Bandit : MonoBehaviour {
         }
 
         //Run
-        else if (Mathf.Abs(inputX) > Mathf.Epsilon)
+        else if (Mathf.Abs(inputX) > Mathf.Epsilon && !freeze)
+        {
             m_animator.SetInteger("AnimState", 2);
+        }
+
+        else if(Mathf.Abs(inputX) > Mathf.Epsilon && freeze)
+        {
+            m_animator.SetTrigger("Recover");
+            freeze = false;
+        }
 
         //Combat Idle
         else if (m_combatIdle)
@@ -105,7 +120,9 @@ public class Bandit : MonoBehaviour {
 
         //Idle
         else
-            m_animator.SetInteger("AnimState", 0);
+        {
+             m_animator.SetInteger("AnimState", 0);
+        }
     }
 
 
@@ -113,8 +130,19 @@ public class Bandit : MonoBehaviour {
     {
         if (interactSensor.canInteract == true)
         {
-            m_combatIdle = !m_combatIdle;
-            m_animator.SetInteger("AnimState", 1);
+            string obj = interactSensor.interactable.GetComponent<Interact>().objectname;
+            if (obj == "cat")
+            {
+                m_combatIdle = !m_combatIdle;
+                m_animator.SetInteger("AnimState", 1);
+                freeze = true;
+            }
+                    
+            if(obj == "bed")
+            { 
+                    m_animator.SetTrigger("Death");
+                    freeze = true;
+            }
         }
     }
 }
