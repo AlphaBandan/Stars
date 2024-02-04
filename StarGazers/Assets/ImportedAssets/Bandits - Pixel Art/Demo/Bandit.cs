@@ -8,6 +8,7 @@ public class Bandit : MonoBehaviour {
 
     public float defaultSize = 3f;
 
+    public Interacting      interactSensor;
     private Animator            m_animator;
     private Rigidbody2D         m_body2d;
     private Sensor_Bandit       m_groundSensor;
@@ -20,6 +21,7 @@ public class Bandit : MonoBehaviour {
         m_animator = GetComponent<Animator>();
         m_body2d = GetComponent<Rigidbody2D>();
         m_groundSensor = transform.Find("GroundSensor").GetComponent<Sensor_Bandit>();
+        interactSensor = gameObject.GetComponent<Interacting>();
     }
 	
 	// Update is called once per frame
@@ -53,22 +55,30 @@ public class Bandit : MonoBehaviour {
 
         // -- Handle Animations --
         //Death
-        if (Input.GetKeyDown("e")) {
-            if(!m_isDead)
+        if (Input.GetKeyDown("t"))
+        {
+            if (!m_isDead)
                 m_animator.SetTrigger("Death");
             else
                 m_animator.SetTrigger("Recover");
 
             m_isDead = !m_isDead;
         }
-            
+
         //Hurt
         else if (Input.GetKeyDown("q"))
             m_animator.SetTrigger("Hurt");
 
         //Attack
-        else if(Input.GetMouseButtonDown(0)) {
+        else if (Input.GetMouseButtonDown(0))
+        {
             m_animator.SetTrigger("Attack");
+        }
+
+        //Interact
+        else if (Input.GetKeyDown("e"))
+        {
+            Interact();
         }
 
         //Change between idle and combat idle
@@ -76,7 +86,8 @@ public class Bandit : MonoBehaviour {
             m_combatIdle = !m_combatIdle;
 
         //Jump
-        else if (Input.GetKeyDown("space") && m_grounded) {
+        else if (Input.GetKeyDown("space") && m_grounded)
+        {
             m_animator.SetTrigger("Jump");
             m_grounded = false;
             m_animator.SetBool("Grounded", m_grounded);
@@ -95,5 +106,15 @@ public class Bandit : MonoBehaviour {
         //Idle
         else
             m_animator.SetInteger("AnimState", 0);
+    }
+
+
+    public void Interact()
+    {
+        if (interactSensor.canInteract == true)
+        {
+            m_combatIdle = !m_combatIdle;
+            m_animator.SetInteger("AnimState", 1);
+        }
     }
 }
