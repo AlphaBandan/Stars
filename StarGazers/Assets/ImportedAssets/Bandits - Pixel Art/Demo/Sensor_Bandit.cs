@@ -3,8 +3,9 @@ using System.Collections;
 
 public class Sensor_Bandit : MonoBehaviour {
 
+    [SerializeField]
     private int m_ColCount = 0;
-
+    [SerializeField]
     private float m_DisableTimer;
 
     private void OnEnable()
@@ -21,12 +22,18 @@ public class Sensor_Bandit : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        m_ColCount++;
+        if (other.tag == "Ground")
+        {
+            m_ColCount++;
+        }
     }
 
     void OnTriggerExit2D(Collider2D other)
     {
-        m_ColCount--;
+        if (other.tag == "Ground")
+        {
+            m_ColCount--;
+        }
     }
 
     void Update()

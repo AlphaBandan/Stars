@@ -6,6 +6,7 @@ TagManager:
   tags:
   - InteractPlayer
   - Interactable
+  - Ground
   layers:
   - Default
   - TransparentFX
