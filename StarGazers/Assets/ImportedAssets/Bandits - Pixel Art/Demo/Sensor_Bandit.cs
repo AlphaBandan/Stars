@@ -22,6 +22,7 @@ public class Sensor_Bandit : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other)
     {
+        //Checks if Object it is colliding with is the ground (stops being able to jump if next to cat)
         if (other.tag == "Ground")
         {
             m_ColCount++;
