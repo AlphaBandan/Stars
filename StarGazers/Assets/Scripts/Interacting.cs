@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Interacting : MonoBehaviour
 {
@@ -8,6 +9,9 @@ public class Interacting : MonoBehaviour
 	public bool canInteract;
 	public GameObject current;
 	public GameObject text;
+	public GameObject textObj;
+
+	public string textmessage;
 
 	public Collider2D collides;
 	public ContactFilter2D filter;
@@ -28,6 +32,7 @@ public class Interacting : MonoBehaviour
         {
 			canInteract = true;
 			interactable = collidedObject.gameObject;
+			textObj.GetComponent<TextMeshPro>().text = interactable.GetComponent<Interact>().message;
 			text.SetActive(true);
         }
     }
@@ -37,8 +42,8 @@ public class Interacting : MonoBehaviour
 		if (collidedObject.gameObject.tag == "Interactable")
 		{
 			canInteract = false;
-			interactable = null;
 			text.SetActive(false);
+			interactable = null;
 		}
 	}
 

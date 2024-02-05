@@ -507,6 +507,10 @@ PrefabInstance:
       value: Cat-2
       objectReference: {fileID: 0}
     - target: {fileID: 3900498314454435882, guid: 76dcb10f73c1b8d4996b518871df4ea2, type: 3}
+      propertyPath: message
+      value: Press e to pet cat
+      objectReference: {fileID: 0}
+    - target: {fileID: 3900498314454435882, guid: 76dcb10f73c1b8d4996b518871df4ea2, type: 3}
       propertyPath: objectname
       value: cat
       objectReference: {fileID: 0}
@@ -591,6 +595,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectname: bed
+  message: Press e to sleep
 --- !u!61 &960661788
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1306,6 +1311,8 @@ MonoBehaviour:
   canInteract: 0
   current: {fileID: 0}
   text: {fileID: 767643954}
+  textObj: {fileID: 2137883586}
+  textmessage: 
   collides: {fileID: 0}
   filter:
     useTriggers: 0
@@ -1397,6 +1404,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 5709217337790263593, guid: 50d8f285a1f534440841cd174bf18f85, type: 3}
+    - {fileID: 72382810794417932, guid: 50d8f285a1f534440841cd174bf18f85, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4567160538140062199, guid: 50d8f285a1f534440841cd174bf18f85, type: 3}
