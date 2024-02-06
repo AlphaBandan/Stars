@@ -108,6 +108,7 @@ public class Bandit : MonoBehaviour {
             m_animator.SetInteger("AnimState", 2);
         }
 
+        //If Sleeping (interacted with other object) unsleep
         else if(Mathf.Abs(inputX) > Mathf.Epsilon && freeze)
         {
             m_animator.SetTrigger("Recover");
@@ -128,8 +129,10 @@ public class Bandit : MonoBehaviour {
 
     public void Interact()
     {
+        //Checks if sensor found an interactable object
         if (interactSensor.canInteract == true)
         {
+            //Finds name of object for each specfic type and runs specific loop
             string obj = interactSensor.interactable.GetComponent<Interact>().objectname;
             if (obj == "cat")
             {
